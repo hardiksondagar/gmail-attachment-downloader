@@ -10,6 +10,7 @@ A web-based tool that allows you to search through your Gmail emails and downloa
 - View emails with attachments
 - Download individual attachments
 - Download multiple attachments as a ZIP file
+- Download email content as JSON
 - Pagination for search results
 - Progress tracking for downloads
 
@@ -24,12 +25,11 @@ A web-based tool that allows you to search through your Gmail emails and downloa
    - Configure the OAuth consent screen (external or internal)
    - Create OAuth 2.0 credentials (Web application type)
    - Add `http://localhost:8000` (or your hosting URL) to the authorized JavaScript origins
-   - Copy your Client ID and API Key
+   - Copy your Client ID
 
 3. Update the credentials in `app.js`:
    ```javascript
    const CLIENT_ID = 'YOUR_CLIENT_ID';
-   const API_KEY = 'YOUR_API_KEY';
    ```
 
 4. Start a local web server to run the application. For example, using Python:
@@ -50,18 +50,20 @@ A web-based tool that allows you to search through your Gmail emails and downloa
 3. Optionally set a date range to narrow down your search.
 4. Click "Search Emails" to find emails with attachments matching your criteria.
 5. Click on an email to view its attachments.
-6. Select the attachments you want to download:
+6. For downloading:
    - Click the "Download" button next to an attachment to download it individually.
-   - Check the boxes next to multiple attachments and click "Download All Attachments" to download them as a ZIP file.
+   - Click "Download All Attachments as ZIP" to download all attachments in the current results as a ZIP file.
+   - Click "Download All Emails as JSON" to export the email data in JSON format.
 
 ## Technical Notes
 
 - This application is built with pure HTML, CSS, and JavaScript with no backend required.
-- Uses the Gmail API to search and fetch emails and attachments.
+- Uses the Gmail API with OAuth 2.0 authentication to securely access email data.
 - Uses Tailwind CSS for styling.
 - JSZip library is dynamically loaded when needed for creating ZIP files.
 - The app processes attachments in batches to prevent browser freezing with large attachments.
 - All authentication and data processing is done client-side.
+- Tokens are encrypted and stored in localStorage for session persistence.
 
 ## Privacy
 
