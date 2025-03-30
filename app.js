@@ -29,6 +29,7 @@ const progressBar = document.getElementById('progress-bar');
 const progressStatus = document.getElementById('progress-status');
 const progressPercentage = document.getElementById('progress-percentage');
 const cancelDownloadButton = document.getElementById('cancel-download');
+const creditCardFilterButton = document.getElementById('credit-card-filter');
 
 let tokenClient;
 let gapiInited = false;
@@ -87,6 +88,11 @@ function initializeApp() {
     cancelDownload = true;
     progressStatus.textContent = 'Cancelling...';
   });
+  
+  // Add credit card filter event listener
+  if (creditCardFilterButton) {
+    creditCardFilterButton.addEventListener('click', applyCreditCardFilter);
+  }
 }
 
 async function initializeGapiClient() {
@@ -1090,4 +1096,40 @@ function downloadAllEmailsAsJson() {
   // Cleanup
   URL.revokeObjectURL(url);
   document.body.removeChild(a);
+}
+
+// Function to apply the credit card statements filter
+function applyCreditCardFilter() {
+  // List of known credit card statement sender emails
+  const creditCardEmails = [
+    'EmailStatements.cards@hdfcbank.net',
+    'cc.statements@axisbank.com',
+    'credit_cards@icicibank.com',
+    'Statements@sbicard.com'
+  ];
+  
+  // Create a search query using OR operator for all emails
+  const emailQuery = creditCardEmails.map(email => `from:${email}`).join(' OR ');
+  
+  // Set the query in the search box
+  searchQuery.value = emailQuery;
+  
+  // Add a visual indicator that filter was applied
+  const indicator = document.createElement('div');
+  indicator.className = 'text-xs text-green-600 mt-1 animate-pulse';
+  indicator.textContent = '✓ Credit card statement filter applied';
+  const existingIndicator = searchQuery.parentNode.querySelector('.animate-pulse');
+  if (existingIndicator) {
+    searchQuery.parentNode.removeChild(existingIndicator);
+  }
+  searchQuery.parentNode.appendChild(indicator);
+  
+  // Fade out the indicator after 3 seconds
+  setTimeout(() => {
+    indicator.style.opacity = '0';
+    indicator.style.transition = 'opacity 1s';
+    setTimeout(() => {
+      if (indicator.parentNode) indicator.parentNode.removeChild(indicator);
+    }, 1000);
+  }, 3000);
 } 
