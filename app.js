@@ -1102,10 +1102,38 @@ function downloadAllEmailsAsJson() {
 function applyCreditCardFilter() {
   // List of known credit card statement sender emails
   const creditCardEmails = [
+    // HDFC
     'EmailStatements.cards@hdfcbank.net',
+    // Axis
     'cc.statements@axisbank.com',
+    // ICICI
     'credit_cards@icicibank.com',
-    'Statements@sbicard.com'
+    // SBI
+    'Statements@sbicard.com',
+    // AU Bank
+    'estatements@info.aubank.in',
+    // PNB
+    'creditcard@punjabnationalbank.in',
+    // IDFC
+    'statement@idfcfirstbank.com',
+    // Onecard
+    'statement@getonecard.app',
+    // IndusInd
+    'creditcard.estatements@indusind.com',
+    // Standard Chartered
+    'Global.E-Statement-IN@sc.com',
+    'alerts.in@sc.com',
+    // Kotak
+    'cardstatement@kotak.com',
+    // Federal
+    'fedmail@federalbank.co.in',
+    // Yes Bank
+    'estatement@yesbank.in',
+    'alerts@yesbank.in',
+    // Amex
+    'onlinestatements@welcome.americanexpress.com',
+    // HSBC
+    'creditcardstatement@mail.hsbc.co.in'
   ];
   
   // Create a search query using OR operator for all emails
